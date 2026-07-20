@@ -1,0 +1,2 @@
+# OsmJPPostalMapDataSource
+OsmJPPostalMapAndroidAppのデータ源
