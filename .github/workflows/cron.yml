@@ -1,0 +1,20 @@
+name: Scheduled Execution
+
+on:
+  schedule:
+    - cron: '0 0 * * *' # 毎日 00:00 UTC
+  workflow_dispatch: # 手動実行も可能に
+
+jobs:
+  run-main:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up JDK 21
+        uses: actions/setup-java@v4
+        with:
+          java-version: '21'
+          distribution: 'temurin'
+          cache: maven
+      - name: Run Main Method
+        run: mvn compile exec:java
