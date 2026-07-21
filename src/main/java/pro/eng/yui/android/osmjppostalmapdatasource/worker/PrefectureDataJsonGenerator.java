@@ -5,28 +5,31 @@ import pro.eng.yui.oss.osm.lib.jppostalcore.JpPostalUtil;
 import pro.eng.yui.oss.osm.lib.jppostalcore.types.OsmPoi;
 
 import java.io.IOException;
-import java.time.LocalDate;
-import java.time.ZoneId;
-import java.util.ArrayList;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 public class PrefectureDataJsonGenerator {
 
+    DateTimeFormatter formatter;
+    
     public PrefectureDataJsonGenerator() {
-
+        formatter = DateTimeFormatter.ofPattern("y/M/d'T'H:m:s");
     }
     
     public static class Result{
         private final int code;
         public int getPrefCode(){ return code; }
-        private final LocalDate dataTimestamp;
-        public LocalDate getDataTimestamp(){ return dataTimestamp; }
+
+        private final LocalDateTime dataTimestamp;
+        public LocalDateTime getDataTimestamp() { return dataTimestamp; }
+
         private final Map<String, Object> data;
         public Map<String, Object> getJsonData(){ return data; }
-        
-        public Result(int prefCode, LocalDate timestamp, Map<String, Object> jsonData){
+
+        public Result(int prefCode, LocalDateTime timestamp, Map<String, Object> jsonData) {
             this.code = prefCode;
             this.dataTimestamp = timestamp;
             this.data = jsonData;
@@ -47,9 +50,9 @@ public class PrefectureDataJsonGenerator {
                 "  nw(area.a)[\"amenity\"=\"post_office\"][\"operator\"=\"日本郵便\"];" +
                 ");";
         List<OsmPoi> pois = JpPostalUtil.callOverpass(query, 3, 20);
-        
-        LocalDate timestamp = LocalDate.now(Main.JST);
-        data.put("lastModified", timestamp);
+
+        LocalDateTime timestamp = LocalDateTime.now(Main.JST);
+        data.put("lastModified", timestamp.format(formatter));
         data.put("prefectureCode", prefCode);
         data.put("name", name);
         data.put("data", pois);

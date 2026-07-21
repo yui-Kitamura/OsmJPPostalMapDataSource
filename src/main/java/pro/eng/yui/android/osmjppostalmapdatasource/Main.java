@@ -106,7 +106,7 @@ public class Main {
                             PrefectureDataJsonGenerator.Result result =
                                     generator.generate(node.get("code").asInt(), node.get("name").asString());
                             resultSet.add(result);
-                        }catch (IOException ioe) {
+                        }catch (IOException|IllegalStateException ioe) {
                             System.err.println(node.get("name")+" 処理失敗:"+ ioe.getMessage());
                         }
                     }
