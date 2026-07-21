@@ -39,8 +39,6 @@ public class PrefectureDataJsonGenerator {
     public Result generate(int prefCode, String name) throws IOException {
         Map<String, Object> data = new HashMap<>();
 
-        List<OsmPoi> pois = new ArrayList<>();
-
         String query = 
                 "area[\"boundary\"=\"administrative\"][\"admin_level\"=\"4\"][\"name\"=\""+ name +"\"]->.a;"+
                 "(" +
@@ -48,8 +46,7 @@ public class PrefectureDataJsonGenerator {
                 "  nw(area.a)[\"amenity\"=\"post_office\"][!\"operator\"];" +
                 "  nw(area.a)[\"amenity\"=\"post_office\"][\"operator\"=\"日本郵便\"];" +
                 ");";
-        JpPostalUtil.callOverpass(query, 3, 20);
-
+        List<OsmPoi> pois = JpPostalUtil.callOverpass(query, 3, 20);
         
         LocalDate timestamp = LocalDate.now(Main.JST);
         data.put("lastModified", timestamp);
