@@ -18,6 +18,8 @@ public class PrefectureDataJsonGenerator {
     public static class Result{
         private final int code;
         public int getPrefCode(){ return code; }
+        private final String name;
+        public String getPrefName(){ return name; }
 
         private final LocalDateTime dataTimestamp;
         public LocalDateTime getDataTimestamp() { return dataTimestamp; }
@@ -28,21 +30,48 @@ public class PrefectureDataJsonGenerator {
             return ((List<OsmPoi>)data.get("data")).size();
         }
 
-        public Result(int prefCode, LocalDateTime timestamp, Map<String, Object> jsonData) {
+        public Result(int prefCode, String prefName, LocalDateTime timestamp, Map<String, Object> jsonData) {
             this.code = prefCode;
+            this.name = prefName;
             this.dataTimestamp = timestamp;
             this.data = jsonData;
+        }
+    }
+    
+    public static class ResultTimestamp{
+        public final String name;
+        public final String lastModified;
+        public ResultTimestamp(String prefName, LocalDateTime time){
+            this.name = prefName;
+            lastModified = Main.FORMATTER.format(time);
+        }
+
+        @Override
+        public boolean equals(Object obj) {
+            if (obj == this){ return true; }
+            if (obj == null || getClass() != obj.getClass()) {
+                return false;
+            }
+            ResultTimestamp that = (ResultTimestamp) obj;
+            return name.equals(that.name) && lastModified.equals(that.lastModified);
+        }
+
+        @Override
+        public int hashCode() {
+            int result = name.hashCode();
+            result = 31 * result + lastModified.hashCode();
+            return result;
         }
     }
 
     /** 
      * @param prefCode 都道府県コード
-     * @param name 都道府県名 */
-    public Result generate(int prefCode, String name) throws IOException {
+     * @param prefName 都道府県名 */
+    public Result generate(int prefCode, String prefName) throws IOException {
         Map<String, Object> data = new HashMap<>();
 
         String query = 
-                "area[\"boundary\"=\"administrative\"][\"admin_level\"=\"4\"][\"name\"=\""+ name +"\"]->.a;"+
+                "area[\"boundary\"=\"administrative\"][\"admin_level\"=\"4\"][\"name\"=\""+ prefName +"\"]->.a;"+
                 "(" +
                 "  node(area.a)[\"amenity\"=\"post_box\"];" +
                 "  nw(area.a)[\"amenity\"=\"post_office\"][!\"operator\"];" +
@@ -53,10 +82,10 @@ public class PrefectureDataJsonGenerator {
         LocalDateTime timestamp = LocalDateTime.now(Main.JST);
         data.put("lastModified", timestamp.format(Main.FORMATTER));
         data.put("prefectureCode", prefCode);
-        data.put("name", name);
+        data.put("prefectureName", prefName);
         data.put("data", pois);
         
-        return new Result(prefCode, timestamp, data);
+        return new Result(prefCode, prefName, timestamp, data);
     }
 }
 
