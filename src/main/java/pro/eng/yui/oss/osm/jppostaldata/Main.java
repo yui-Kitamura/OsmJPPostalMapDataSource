@@ -106,10 +106,12 @@ public class Main {
                         try {
                             PrefectureDataJsonGenerator.Result result =
                                     generator.generate(node.get("code").asInt(), node.get("name").asString());
-                            System.out.println(node.get("name")+" 処理完了。件数: "+result.getJsonData().size());
+                            System.out.println(FORMATTER.format(ZonedDateTime.now(JST)) +
+                                    node.get("name")+" 処理完了。件数: "+result.getJsonData().size());
                             resultSet.add(result);
                         }catch (IOException|IllegalStateException ioe) {
-                            System.err.println(node.get("name")+" 処理失敗:"+ ioe.getMessage());
+                            System.err.println(FORMATTER.format(ZonedDateTime.now(JST)) +
+                                    node.get("name")+" 処理失敗:"+ ioe.getMessage());
                         }
                     }
                     
