@@ -146,12 +146,11 @@ public class Main {
 
         try (HttpClient client = HttpClient.newBuilder().build()){
             HttpRequest request = HttpRequest.newBuilder()
-                    .uri(URI.create("https://yui-kitamura.github.io/OsmJPPostalMapDataSource/data/date.json"))
+                    .uri(URI.create("https://yui-kitamura.github.io/OsmJpPostalMapDataSource/data/date.json"))
                     .GET()
                     .build();
 
             HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
-            if (response.statusCode() != 200){ return prefectures; }
 
             Gson gson = new Gson();
             JsonObject jsonData = gson.fromJson(response.body(), JsonObject.class);
