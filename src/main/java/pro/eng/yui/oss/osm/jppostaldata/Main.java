@@ -69,13 +69,14 @@ public class Main {
             for (int i=0; i<prefTimestamp.size(); i++) {
                 if (prefTimestamp.get(i).name.equals(r.getPrefName())) {
                     prefTimestamp.remove(i);
-                    prefTimestamp.add(
-                        new PrefectureDataJsonGenerator.ResultTimestamp(r.getPrefName(), r.getDataTimestamp())
-                    );
                     break;
                 }
             }
+            prefTimestamp.add(
+                    new PrefectureDataJsonGenerator.ResultTimestamp(r.getPrefName(), r.getDataTimestamp())
+            );
         }
+    }
 
         Map<String, Object> data = new HashMap<>();
         data.put("lastUpdated", FORMATTER.format(ZonedDateTime.now(JST)));
