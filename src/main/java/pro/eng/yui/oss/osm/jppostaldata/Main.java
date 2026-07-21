@@ -53,14 +53,13 @@ public class Main {
         }
 
         // データ更新バッチ
+        List<PrefectureDataJsonGenerator.ResultTimestamp> prefTimestamp = loadExistPrefTimestamp();
         Set<PrefectureDataJsonGenerator.Result> results = generatePrefectureDataJson();
         
         // ファイル書き出し
         Path outputDataDir = outputDir.resolve("data");
         Files.createDirectories(outputDataDir);
 
-        List<PrefectureDataJsonGenerator.ResultTimestamp> prefTimestamp = loadExistPrefTimestamp();
-        
         for (PrefectureDataJsonGenerator.Result r : results) {
             final int prefCode = r.getPrefCode();
             final String fileName = "jPostal_"+ String.format("%02d",prefCode) + ".json";
@@ -157,11 +156,13 @@ public class Main {
             JsonObject jsonData = gson.fromJson(response.body(), JsonObject.class);
             JsonArray arrayData = jsonData.getAsJsonArray("prefectures");
             
-            for (int i = 0; i < arrayData.size(); i++) {
-                JsonObject obj = arrayData.get(i).getAsJsonObject();
-                String name = obj.get("name").getAsString();
-                LocalDateTime timestamp = LocalDateTime.from(FORMATTER.parse(obj.get("lastModified").getAsString()));
-                prefectures.add(new PrefectureDataJsonGenerator.ResultTimestamp(name, timestamp));
+            if (arrayData != null) {
+                for (int i = 0; i < arrayData.size(); i++) {
+                    JsonObject obj = arrayData.get(i).getAsJsonObject();
+                    String name = obj.get("name").getAsString();
+                    LocalDateTime timestamp = LocalDateTime.from(FORMATTER.parse(obj.get("lastModified").getAsString()));
+                    prefectures.add(new PrefectureDataJsonGenerator.ResultTimestamp(name, timestamp));
+                }
             }
         }catch (IOException | InterruptedException ignore) { }
         return prefectures;
