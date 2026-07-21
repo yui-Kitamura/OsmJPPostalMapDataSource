@@ -10,7 +10,7 @@
   <pre id="data"></pre>
   
   <script>
-      fetch('date.json')
+      fetch('data/date.json')
           .then(response => response.json())
           .then(data => {
               document.getElementById('status').innerText = 'Last Updated: ' + data.lastUpdated;
@@ -26,59 +26,59 @@
     <h2>データセット</h2>
     <h3>マスターデータ</h3>
     <ol>
-      <li>都道府県コード（<a href="/master/pref.json">master/pref.json</a>）</li>
+      <li>都道府県コード（<a href="data/master/pref.json">master/pref.json</a>）</li>
     </ol>
     <h3>データファイル</h3>
     <ul>
-      <li>最終更新日（<a href="/data/date.json">data/date.json</a>）</li>
+      <li>最終更新日（<a href="data/date.json">data/date.json</a>）</li>
       <li>都道府県別データセット<ul>
-        <li><a href="/data/jPostal_01.json">北海道</a></li>
-        <li><a href="/data/jPostal_02.json">青森県</a></li>
-        <li><a href="/data/jPostal_03.json">岩手県</a></li>
-        <li><a href="/data/jPostal_04.json">宮城県</a></li>
-        <li><a href="/data/jPostal_05.json">秋田県</a></li>
-        <li><a href="/data/jPostal_06.json">山形県</a></li>
-        <li><a href="/data/jPostal_07.json">福島県</a></li>
-        <li><a href="/data/jPostal_08.json">茨城県</a></li>
-        <li><a href="/data/jPostal_09.json">栃木県</a></li>
-        <li><a href="/data/jPostal_10.json">群馬県</a></li>
-        <li><a href="/data/jPostal_11.json">埼玉県</a></li>
-        <li><a href="/data/jPostal_12.json">千葉県</a></li>
-        <li><a href="/data/jPostal_13.json">東京都</a></li>
-        <li><a href="/data/jPostal_14.json">神奈川県</a></li>
-        <li><a href="/data/jPostal_15.json">新潟県</a></li>
-        <li><a href="/data/jPostal_16.json">富山県</a></li>
-        <li><a href="/data/jPostal_17.json">石川県</a></li>
-        <li><a href="/data/jPostal_18.json">福井県</a></li>
-        <li><a href="/data/jPostal_19.json">山梨県</a></li>
-        <li><a href="/data/jPostal_20.json">長野県</a></li>
-        <li><a href="/data/jPostal_21.json">岐阜県</a></li>
-        <li><a href="/data/jPostal_22.json">静岡県</a></li>
-        <li><a href="/data/jPostal_23.json">愛知県</a></li>
-        <li><a href="/data/jPostal_24.json">三重県</a></li>
-        <li><a href="/data/jPostal_25.json">滋賀県</a></li>
-        <li><a href="/data/jPostal_26.json">京都府</a></li>
-        <li><a href="/data/jPostal_27.json">大阪府</a></li>
-        <li><a href="/data/jPostal_28.json">兵庫県</a></li>
-        <li><a href="/data/jPostal_29.json">奈良県</a></li>
-        <li><a href="/data/jPostal_30.json">和歌山県</a></li>
-        <li><a href="/data/jPostal_31.json">鳥取県</a></li>
-        <li><a href="/data/jPostal_32.json">島根県</a></li>
-        <li><a href="/data/jPostal_33.json">岡山県</a></li>
-        <li><a href="/data/jPostal_34.json">広島県</a></li>
-        <li><a href="/data/jPostal_35.json">山口県</a></li>
-        <li><a href="/data/jPostal_36.json">徳島県</a></li>
-        <li><a href="/data/jPostal_37.json">香川県</a></li>
-        <li><a href="/data/jPostal_38.json">愛媛県</a></li>
-        <li><a href="/data/jPostal_39.json">高知県</a></li>
-        <li><a href="/data/jPostal_40.json">福岡県</a></li>
-        <li><a href="/data/jPostal_41.json">佐賀県</a></li>
-        <li><a href="/data/jPostal_42.json">長崎県</a></li>
-        <li><a href="/data/jPostal_43.json">熊本県</a></li>
-        <li><a href="/data/jPostal_44.json">大分県</a></li>
-        <li><a href="/data/jPostal_45.json">宮崎県</a></li>
-        <li><a href="/data/jPostal_46.json">鹿児島県</a></li>
-        <li><a href="/data/jPostal_47.json">沖縄県</a></li>
+        <li><a href="data/jPostal_01.json">北海道</a></li>
+        <li><a href="data/jPostal_02.json">青森県</a></li>
+        <li><a href="data/jPostal_03.json">岩手県</a></li>
+        <li><a href="data/jPostal_04.json">宮城県</a></li>
+        <li><a href="data/jPostal_05.json">秋田県</a></li>
+        <li><a href="data/jPostal_06.json">山形県</a></li>
+        <li><a href="data/jPostal_07.json">福島県</a></li>
+        <li><a href="data/jPostal_08.json">茨城県</a></li>
+        <li><a href="data/jPostal_09.json">栃木県</a></li>
+        <li><a href="data/jPostal_10.json">群馬県</a></li>
+        <li><a href="data/jPostal_11.json">埼玉県</a></li>
+        <li><a href="data/jPostal_12.json">千葉県</a></li>
+        <li><a href="data/jPostal_13.json">東京都</a></li>
+        <li><a href="data/jPostal_14.json">神奈川県</a></li>
+        <li><a href="data/jPostal_15.json">新潟県</a></li>
+        <li><a href="data/jPostal_16.json">富山県</a></li>
+        <li><a href="data/jPostal_17.json">石川県</a></li>
+        <li><a href="data/jPostal_18.json">福井県</a></li>
+        <li><a href="data/jPostal_19.json">山梨県</a></li>
+        <li><a href="data/jPostal_20.json">長野県</a></li>
+        <li><a href="data/jPostal_21.json">岐阜県</a></li>
+        <li><a href="data/jPostal_22.json">静岡県</a></li>
+        <li><a href="data/jPostal_23.json">愛知県</a></li>
+        <li><a href="data/jPostal_24.json">三重県</a></li>
+        <li><a href="data/jPostal_25.json">滋賀県</a></li>
+        <li><a href="data/jPostal_26.json">京都府</a></li>
+        <li><a href="data/jPostal_27.json">大阪府</a></li>
+        <li><a href="data/jPostal_28.json">兵庫県</a></li>
+        <li><a href="data/jPostal_29.json">奈良県</a></li>
+        <li><a href="data/jPostal_30.json">和歌山県</a></li>
+        <li><a href="data/jPostal_31.json">鳥取県</a></li>
+        <li><a href="data/jPostal_32.json">島根県</a></li>
+        <li><a href="data/jPostal_33.json">岡山県</a></li>
+        <li><a href="data/jPostal_34.json">広島県</a></li>
+        <li><a href="data/jPostal_35.json">山口県</a></li>
+        <li><a href="data/jPostal_36.json">徳島県</a></li>
+        <li><a href="data/jPostal_37.json">香川県</a></li>
+        <li><a href="data/jPostal_38.json">愛媛県</a></li>
+        <li><a href="data/jPostal_39.json">高知県</a></li>
+        <li><a href="data/jPostal_40.json">福岡県</a></li>
+        <li><a href="data/jPostal_41.json">佐賀県</a></li>
+        <li><a href="data/jPostal_42.json">長崎県</a></li>
+        <li><a href="data/jPostal_43.json">熊本県</a></li>
+        <li><a href="data/jPostal_44.json">大分県</a></li>
+        <li><a href="data/jPostal_45.json">宮崎県</a></li>
+        <li><a href="data/jPostal_46.json">鹿児島県</a></li>
+        <li><a href="data/jPostal_47.json">沖縄県</a></li>
       </ul></li>
     </ul>
   </nav>
