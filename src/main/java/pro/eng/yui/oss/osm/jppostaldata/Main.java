@@ -76,7 +76,6 @@ public class Main {
                     new PrefectureDataJsonGenerator.ResultTimestamp(r.getPrefName(), r.getDataTimestamp())
             );
         }
-    }
 
         Map<String, Object> data = new HashMap<>();
         data.put("lastUpdated", FORMATTER.format(ZonedDateTime.now(JST)));
