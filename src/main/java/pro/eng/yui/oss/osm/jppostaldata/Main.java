@@ -58,7 +58,6 @@ public class Main {
         Path outputDataDir = outputDir.resolve("data");
         Files.createDirectories(outputDataDir);
         Path outputPath = outputDataDir.resolve("date.json");
-        outputPath.toFile().createNewFile();
         mapper.writeValue(outputPath.toFile(), data);
         System.out.println("JSONを生成しました: " + outputPath.toAbsolutePath());
         
@@ -66,7 +65,6 @@ public class Main {
             final int prefCode = r.getPrefCode();
             final String fileName = "jPostal_"+ String.format("%02d",prefCode) + ".json";
             Path dataOutputPath = outputDataDir.resolve(fileName);
-            dataOutputPath.toFile().createNewFile();
             mapper.writeValue(dataOutputPath.toFile(), r.getJsonData());
         }
         
@@ -108,6 +106,7 @@ public class Main {
                         try {
                             PrefectureDataJsonGenerator.Result result =
                                     generator.generate(node.get("code").asInt(), node.get("name").asString());
+                            System.out.println(node.get("name")+" 処理完了。件数: "+result.getJsonData().size());
                             resultSet.add(result);
                         }catch (IOException|IllegalStateException ioe) {
                             System.err.println(node.get("name")+" 処理失敗:"+ ioe.getMessage());
