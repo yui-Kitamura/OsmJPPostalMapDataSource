@@ -53,6 +53,7 @@ public class Main {
         
         // ファイル書き出し
         Path outputDataDir = outputDir.resolve("data");
+        Files.createDirectories(outputDataDir);
         Path outputPath = outputDataDir.resolve("date.json");
         outputPath.toFile().createNewFile();
         mapper.writeValue(outputPath.toFile(), data);
