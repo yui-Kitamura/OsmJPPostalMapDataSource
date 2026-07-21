@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>OsmJpPostaMapDataSource</title>
+</head>
+<body>
+    <h1>OsmJpPostaMapDataSource</h1>
+    <div id="status">Loading...</div>
+    <pre id="data"></pre>
+
+    <script>
+        fetch('data.json')
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('status').innerText = 'Last Updated: ' + data.lastUpdated;
+                document.getElementById('data').innerText = JSON.stringify(data, null, 2);
+            })
+            .catch(error => {
+                document.getElementById('status').innerText = 'Error loading data';
+                console.error('Error:', error);
+            });
+    </script>
+</body>
+</html>
