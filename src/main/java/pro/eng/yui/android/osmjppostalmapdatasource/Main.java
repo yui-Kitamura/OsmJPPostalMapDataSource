@@ -62,8 +62,8 @@ public class Main {
             if (inputStream == null) {
                 throw new IOException("pref.jsonが見つかりません");
             }
-            Files.copy(inputStream, indexOutputPath, StandardCopyOption.REPLACE_EXISTING);
-            System.out.println("pref.jsonをコピーしました: " + indexOutputPath.toAbsolutePath());
+            Files.copy(inputStream, prefOutputPath, StandardCopyOption.REPLACE_EXISTING);
+            System.out.println("pref.jsonをコピーしました: " + prefOutputPath.toAbsolutePath());
         }
     }
 }
