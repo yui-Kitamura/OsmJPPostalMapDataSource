@@ -2,6 +2,7 @@ package pro.eng.yui.oss.osm.jppostaldata.worker;
 
 import pro.eng.yui.oss.osm.jppostaldata.Main;
 import pro.eng.yui.oss.osm.lib.jppostalcore.JpPostalUtil;
+import pro.eng.yui.oss.osm.lib.jppostalcore.api.overpass.OverpassQuery;
 import pro.eng.yui.oss.osm.lib.jppostalcore.types.OsmPoi;
 
 import java.io.IOException;
@@ -70,13 +71,7 @@ public class PrefectureDataJsonGenerator {
     public Result generate(int prefCode, String prefName) throws IOException {
         Map<String, Object> data = new HashMap<>();
 
-        String query = 
-                "area[\"boundary\"=\"administrative\"][\"admin_level\"=\"4\"][\"name\"=\""+ prefName +"\"]->.a;"+
-                "(" +
-                "  node(area.a)[\"amenity\"=\"post_box\"];" +
-                "  nw(area.a)[\"amenity\"=\"post_office\"][!\"operator\"];" +
-                "  nw(area.a)[\"amenity\"=\"post_office\"][\"operator\"=\"日本郵便\"];" +
-                ");";
+        String query = OverpassQuery.getPostSearchQuery(prefName);
         List<OsmPoi> pois = JpPostalUtil.callOverpass(query, 3, 20);
 
         LocalDateTime timestamp = LocalDateTime.now(Main.JST);
