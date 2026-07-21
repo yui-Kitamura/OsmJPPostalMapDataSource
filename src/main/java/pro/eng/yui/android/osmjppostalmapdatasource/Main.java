@@ -102,9 +102,13 @@ public class Main {
             if (rootNode.isArray()) {
                 for (JsonNode node : rootNode) {
                     if (node.has("code") && node.has("name")) {
-                        PrefectureDataJsonGenerator.Result result = 
-                            generator.generate(node.get("code").asInt(), node.get("name").asString());
-                        resultSet.add(result);
+                        try {
+                            PrefectureDataJsonGenerator.Result result =
+                                    generator.generate(node.get("code").asInt(), node.get("name").asString());
+                            resultSet.add(result);
+                        }catch (IOException ioe) {
+                            System.err.println(node.get("name")+" 処理失敗:"+ ioe.getMessage());
+                        }
                     }
                     
                 }
