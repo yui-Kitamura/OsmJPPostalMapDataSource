@@ -21,7 +21,7 @@ import java.util.Set;
 public class Main {
     
     public static final ZoneId JST = ZoneId.of("Asia/Tokyo");
-    public static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("y/M/d'T'H:m:s");
+    public static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("y/MM/dd'T'HH:mm:ss");
     
     public static void main(String[] args) {
         System.out.println("定期実行開始: " + FORMATTER.format(ZonedDateTime.now(JST)));
