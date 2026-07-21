@@ -151,6 +151,7 @@ public class Main {
                     .build();
 
             HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+            if (response.statusCode() != 200){ return prefectures; }
 
             Gson gson = new Gson();
             JsonObject jsonData = gson.fromJson(response.body(), JsonObject.class);
