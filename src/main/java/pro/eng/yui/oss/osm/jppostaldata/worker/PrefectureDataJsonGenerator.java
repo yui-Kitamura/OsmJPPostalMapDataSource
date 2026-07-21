@@ -1,22 +1,18 @@
-package pro.eng.yui.android.osmjppostalmapdatasource.worker;
+package pro.eng.yui.oss.osm.jppostaldata.worker;
 
-import pro.eng.yui.android.osmjppostalmapdatasource.Main;
+import pro.eng.yui.oss.osm.jppostaldata.Main;
 import pro.eng.yui.oss.osm.lib.jppostalcore.JpPostalUtil;
 import pro.eng.yui.oss.osm.lib.jppostalcore.types.OsmPoi;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 public class PrefectureDataJsonGenerator {
 
-    DateTimeFormatter formatter;
-    
     public PrefectureDataJsonGenerator() {
-        formatter = DateTimeFormatter.ofPattern("y/M/d'T'H:m:s");
     }
     
     public static class Result{
@@ -52,7 +48,7 @@ public class PrefectureDataJsonGenerator {
         List<OsmPoi> pois = JpPostalUtil.callOverpass(query, 3, 20);
 
         LocalDateTime timestamp = LocalDateTime.now(Main.JST);
-        data.put("lastModified", timestamp.format(formatter));
+        data.put("lastModified", timestamp.format(Main.FORMATTER));
         data.put("prefectureCode", prefCode);
         data.put("name", name);
         data.put("data", pois);

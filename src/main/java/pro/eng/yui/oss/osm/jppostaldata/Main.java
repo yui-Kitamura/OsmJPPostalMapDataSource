@@ -1,6 +1,6 @@
-package pro.eng.yui.android.osmjppostalmapdatasource;
+package pro.eng.yui.oss.osm.jppostaldata;
 
-import pro.eng.yui.android.osmjppostalmapdatasource.worker.PrefectureDataJsonGenerator;
+import pro.eng.yui.oss.osm.jppostaldata.worker.PrefectureDataJsonGenerator;
 import tools.jackson.databind.JsonNode;
 import tools.jackson.databind.ObjectMapper;
 
@@ -12,6 +12,7 @@ import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -20,6 +21,8 @@ import java.util.Set;
 public class Main {
     
     public static final ZoneId JST = ZoneId.of("Asia/Tokyo");
+    public static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("y/M/d'T'H:m:s");
+    
     public static void main(String[] args) {
         System.out.println("定期実行開始: " + ZonedDateTime.now(JST));
         

@@ -41,7 +41,7 @@
         <artifactId>exec-maven-plugin</artifactId>
         <version>3.1.0</version>
         <configuration>
-          <mainClass>pro.eng.yui.android.osmjppostalmapdatasource.Main</mainClass>
+          <mainClass>pro.eng.yui.oss.osm.jppostaldata.Main</mainClass>
         </configuration>
       </plugin>
     </plugins>
