@@ -23,7 +23,10 @@ public class PrefectureDataJsonGenerator {
         public LocalDateTime getDataTimestamp() { return dataTimestamp; }
 
         private final Map<String, Object> data;
-        public Map<String, Object> getJsonData(){ return data; }
+        public Map<String, Object> getObjects(){ return data; }
+        public int getDataSize(){
+            return ((List<OsmPoi>)data.get("data")).size();
+        }
 
         public Result(int prefCode, LocalDateTime timestamp, Map<String, Object> jsonData) {
             this.code = prefCode;

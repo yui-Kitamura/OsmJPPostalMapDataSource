@@ -65,7 +65,7 @@ public class Main {
             final int prefCode = r.getPrefCode();
             final String fileName = "jPostal_"+ String.format("%02d",prefCode) + ".json";
             Path dataOutputPath = outputDataDir.resolve(fileName);
-            mapper.writeValue(dataOutputPath.toFile(), r.getJsonData());
+            mapper.writeValue(dataOutputPath.toFile(), r.getObjects());
         }
         
         Path indexOutputPath = outputDir.resolve("index.html");
@@ -107,7 +107,7 @@ public class Main {
                             PrefectureDataJsonGenerator.Result result =
                                     generator.generate(node.get("code").asInt(), node.get("name").asString());
                             System.out.println(FORMATTER.format(ZonedDateTime.now(JST)) +
-                                    node.get("name")+" 処理完了。件数: "+result.getJsonData().size());
+                                    node.get("name")+" 処理完了。件数: "+result.getDataSize());
                             resultSet.add(result);
                         }catch (IOException|IllegalStateException ioe) {
                             System.err.println(FORMATTER.format(ZonedDateTime.now(JST)) +
