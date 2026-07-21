@@ -3,9 +3,11 @@ package pro.eng.yui.android.osmjppostalmapdatasource;
 import tools.jackson.databind.ObjectMapper;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.util.HashMap;
@@ -44,7 +46,24 @@ public class Main {
         // ファイル書き出し
         Path outputPath = outputDir.resolve("data.json");
         mapper.writeValue(outputPath.toFile(), data);
-        
         System.out.println("JSONを生成しました: " + outputPath.toAbsolutePath());
+        
+        Path indexOutputPath = outputDir.resolve("index.html");
+        try (InputStream inputStream = Main.class.getResourceAsStream("/content/index.html")) {
+            if (inputStream == null) {
+                throw new IOException("index.htmlが見つかりません");
+            }
+            Files.copy(inputStream, indexOutputPath, StandardCopyOption.REPLACE_EXISTING);
+            System.out.println("index.htmlをコピーしました: " + indexOutputPath.toAbsolutePath());
+        }
+
+        Path prefOutputPath = outputDir.resolve("master/pref.json");
+        try (InputStream inputStream = Main.class.getResourceAsStream("/content/pref.json")) {
+            if (inputStream == null) {
+                throw new IOException("pref.jsonが見つかりません");
+            }
+            Files.copy(inputStream, indexOutputPath, StandardCopyOption.REPLACE_EXISTING);
+            System.out.println("pref.jsonをコピーしました: " + indexOutputPath.toAbsolutePath());
+        }
     }
 }
