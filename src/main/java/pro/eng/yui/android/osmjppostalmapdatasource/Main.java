@@ -52,14 +52,14 @@ public class Main {
         Set<PrefectureDataJsonGenerator.Result> results = generatePrefectureDataJson();
         
         // ファイル書き出し
-        Path outputPath = outputDir.resolve("data/date.json");
+        Path outputPath = outputDir.resolve("date.json");
         outputPath.toFile().createNewFile();
         mapper.writeValue(outputPath.toFile(), data);
         System.out.println("JSONを生成しました: " + outputPath.toAbsolutePath());
         
         for (PrefectureDataJsonGenerator.Result r : results) {
             final int prefCode = r.getPrefCode();
-            final String fileName = "data/jPostal_"+ String.format("%02d",prefCode) + ".json";
+            final String fileName = "jPostal_"+ String.format("%02d",prefCode) + ".json";
             Path dataOutputPath = outputDir.resolve(fileName);
             mapper.writeValue(dataOutputPath.toFile(), r.getJsonData());
         }
