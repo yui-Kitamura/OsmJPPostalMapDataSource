@@ -10,7 +10,7 @@
   <pre id="data"></pre>
   
   <script>
-      fetch('data.json')
+      fetch('date.json')
           .then(response => response.json())
           .then(data => {
               document.getElementById('status').innerText = 'Last Updated: ' + data.lastUpdated;
