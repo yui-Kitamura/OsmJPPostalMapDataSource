@@ -3,7 +3,12 @@ name: Scheduled Execution
 on:
   schedule:
     - cron: '0 */6 * * *' # 6時間毎 (00:00, 06:00, 12:00, 18:00 UTC)
-  workflow_dispatch: # 手動実行も可能に
+  workflow_dispatch:
+    inputs:
+      prefecture:
+        description: '実行対象の都道府県コード（01〜47）または都道府県名'
+        required: true
+        type: string
 
 permissions:
   contents: write
@@ -25,7 +30,9 @@ jobs:
       - name: Build
         run: mvn -B package
       - name: Run Main Method
-        run: mvn compile exec:java
+        env:
+          TARGET_PREFECTURE: ${{ inputs.prefecture }}
+        run: mvn compile exec:java -Dexec.args="$TARGET_PREFECTURE"
 
       - name: Checkout gh-pages
         uses: actions/checkout@v7.0.0

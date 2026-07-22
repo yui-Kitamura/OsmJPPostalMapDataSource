@@ -30,9 +30,14 @@ public class Main {
     
     public static void main(String[] args) {
         System.out.println("定期実行開始: " + FORMATTER.format(ZonedDateTime.now(JST)));
+
+        if (args.length > 1) {
+            throw new IllegalArgumentException("引数には都道府県コードまたは都道府県名を1つだけ指定してください");
+        }
+        String targetPrefecture = args.length == 0 || args[0].isBlank() ? null : args[0].trim();
         
         try {
-            generateJson();
+            generateJson(targetPrefecture);
         } catch (IOException e) {
             System.err.println("ファイルの生成に失敗しました");
             e.printStackTrace();
@@ -42,7 +47,7 @@ public class Main {
         
     }
 
-    private static void generateJson() throws IOException {
+    private static void generateJson(String targetPrefecture) throws IOException {
         ObjectMapper mapper = new ObjectMapper();
 
         // 保存先ディレクトリの確認
@@ -53,7 +58,7 @@ public class Main {
 
         // データ更新バッチ
         List<PrefectureDataJsonGenerator.ResultTimestamp> prefTimestamp = loadExistPrefTimestamp();
-        Set<PrefectureDataJsonGenerator.Result> results = generatePrefectureDataJson();
+        Set<PrefectureDataJsonGenerator.Result> results = generatePrefectureDataJson(targetPrefecture);
         
         // ファイル書き出し
         Path outputDataDir = outputDir.resolve("data");
@@ -109,10 +114,11 @@ public class Main {
         }
     }
 
-    private static Set<PrefectureDataJsonGenerator.Result> generatePrefectureDataJson() throws IOException {
+    private static Set<PrefectureDataJsonGenerator.Result> generatePrefectureDataJson(String targetPrefecture) throws IOException {
         ObjectMapper mapper = new ObjectMapper();
         PrefectureDataJsonGenerator generator = new PrefectureDataJsonGenerator();
         Set<PrefectureDataJsonGenerator.Result> resultSet = new HashSet<>();
+        boolean targetFound = targetPrefecture == null;
         
         try (InputStream inputStream = Main.class.getResourceAsStream("/content/pref.json")) {
             if (inputStream == null) { throw new IOException("pref.jsonが見つかりません"); }
@@ -121,11 +127,20 @@ public class Main {
             if (rootNode.isArray()) {
                 for (JsonNode node : rootNode) {
                     if (node.has("code") && node.has("name")) {
+                        int prefCode = node.get("code").asInt();
+                        String prefName = node.get("name").asString();
+                        if (targetPrefecture != null
+                                && !targetPrefecture.equals(prefName)
+                                && !targetPrefecture.equals(String.valueOf(prefCode))
+                                && !targetPrefecture.equals(String.format("%02d", prefCode))) {
+                            continue;
+                        }
+                        targetFound = true;
                         try {
                             PrefectureDataJsonGenerator.Result result =
-                                    generator.generate(node.get("code").asInt(), node.get("name").asString());
+                                    generator.generate(prefCode, prefName);
                             System.out.println(FORMATTER.format(ZonedDateTime.now(JST)) +
-                                    node.get("name")+" 処理完了。件数: "+result.getDataSize());
+                                    prefName+" 処理完了。件数: "+result.getDataSize());
                             resultSet.add(result);
                         }catch (IOException|IllegalStateException ioe) {
                             System.err.println(FORMATTER.format(ZonedDateTime.now(JST)) +
@@ -135,6 +150,10 @@ public class Main {
                     
                 }
             }
+        }
+
+        if (!targetFound) {
+            throw new IllegalArgumentException("都道府県コードまたは都道府県名が不正です: " + targetPrefecture);
         }
 
         return resultSet;
