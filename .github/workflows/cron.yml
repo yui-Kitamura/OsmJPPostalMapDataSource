@@ -6,8 +6,9 @@ on:
   workflow_dispatch:
     inputs:
       prefecture:
-        description: '実行対象の都道府県コード（01〜47）または都道府県名'
-        required: true
+        description: '都道府県コード（01〜47）または都道府県名（空欄は全国）'
+        required: false
+        default: ''
         type: string
 
 permissions:
