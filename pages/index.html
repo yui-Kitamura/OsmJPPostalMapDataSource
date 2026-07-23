@@ -86,8 +86,10 @@
                               if (timeElement) {
                                   timeElement.setAttribute('datetime', pref.lastModified);
                                   timeElement.innerText = pref.lastModified;
-                                  
-                                  const modified = new Date(pref.lastModified).getTime();
+
+                                  // Parse custom format: yyyy/MM/ddTHH:mm:ss
+                                  const dateStr = pref.lastModified.replace('T', ' ').replace(/\//g, '-');
+                                  const modified = new Date(dateStr).getTime();
                                   const oneDayAgo = new Date().getTime() - 24*60*60*1000; 
                                   if (modified < oneDayAgo){
                                       timeElement.classList.add("old");
