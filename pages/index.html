@@ -74,7 +74,7 @@
         <li><a href="data/jPostal_47.json">沖縄県</a>（最終更新 <span id="ts_47"><time datetime=""></time></span>）</li>
       </ul></li>
       <script>
-          fetch('data/date.json')
+          fetch('data/date.json?t=' + new Date().getTime())
               .then(response => response.json())
               .then(data => {
                   document.getElementById('status').innerText = 'Last Updated: ' + data.lastUpdated;
